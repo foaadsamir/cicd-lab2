@@ -31,10 +31,10 @@ pipeline {
             }
         }
 
-        stage('Deploy Artifact') {
+        stage('Install Artifact') {
             steps {
-                echo " Deploying artifact with mvn deploy"
-                sh 'mvn deploy'
+                echo " Installing artifact to local Maven repository"
+                sh 'mvn install'
             }
         }
 
