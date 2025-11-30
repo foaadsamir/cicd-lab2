@@ -1,17 +1,13 @@
-def call() {
-    stage('Clean') {
-        sh 'mvn clean'
-    }
+@Library('jenkins-sharedlib') _
 
-    stage('Test') {
-        sh 'mvn test'
-    }
+pipeline {
+    agent any
 
-    stage('Package') {
-        sh 'mvn package'
-    }
-
-    stage('Install') {
-        sh 'mvn install'
+    stages {
+        stage('Build with Shared Library') {
+            steps {
+                mavenBuild()
+            }
+        }
     }
 }
