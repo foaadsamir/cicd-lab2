@@ -6,7 +6,9 @@ pipeline {
     stages {
         stage('Build with Shared Library') {
             steps {
-                mavenBuild()
+                script {
+                    mavenBuild()
+                }
             }
         }
     }
