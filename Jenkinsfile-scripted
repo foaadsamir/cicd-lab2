@@ -1,0 +1,33 @@
+node {
+
+    stage('Checkout Code') {
+        echo "Pulling code from GitHub..."
+        checkout scm
+    }
+
+    stage('Clean') {
+        echo "Running mvn clean"
+        sh 'mvn clean'
+    }
+
+    stage('Run Tests') {
+        echo "Running mvn test"
+        sh 'mvn test'
+    }
+
+    stage('Package App') {
+        echo "Packaging using mvn package"
+        sh 'mvn package'
+    }
+
+    stage('Install Artifact') {
+        echo "Installing artifact locally"
+        sh 'mvn install'
+    }
+
+    stage('Archive Jar') {
+        echo "Archiving JAR file"
+        archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
+    }
+
+}
