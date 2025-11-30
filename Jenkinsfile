@@ -5,7 +5,7 @@ pipeline {
 
         stage('Checkout Code') {
             steps {
-                echo "Pulling source code from GitHub..."
+                echo " Pulling source code from GitHub..."
                 checkout scm
             }
         }
@@ -43,6 +43,29 @@ pipeline {
                 echo " Archiving built JAR file"
                 archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
             }
+        }
+    }
+
+    post {
+
+        always {
+            echo "♻ Cleaning workspace..."
+            cleanWs()
+        }
+
+        success {
+            echo " Build finished successfully!"
+            echo " Artifact is ready in Jenkins artifacts."
+        }
+
+        failure {
+            echo " Build failed!"
+            echo " Please check the logs for more details."
+        }
+
+        unstable {
+            echo " Build is unstable!"
+            echo "Maybe tests failed or warnings appeared."
         }
     }
 }
