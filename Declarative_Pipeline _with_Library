@@ -1,12 +1,13 @@
-@Library('jenkins-sharedlib')_
+@Library('jenkins-library')_
 
 pipeline {
     agent any
-
     stages {
-        stage('Build with Shared Library') {
+        stage('Build with Library') {
             steps {
-                mavenBuild()
+                script {
+                    mavenBuild()
+                }
             }
         }
     }
